@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>TextPolishr</RootNamespace>
+    <AssemblyName>TextPolishr</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon />
+    <Version>0.1.0</Version>
+    <Authors>Text Polishr contributors</Authors>
+    <Description>Transform selected text anywhere on Windows with your preferred LLM.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/13324/TextPolishr</RepositoryUrl>
+    <PublishSingleFile>false</PublishSingleFile>
+  </PropertyGroup>
+</Project>

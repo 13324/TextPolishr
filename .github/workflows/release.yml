@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  windows-release:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Publish self-contained Windows x64 app
+        shell: pwsh
+        run: >-
+          dotnet publish src/TextPolishr/TextPolishr.csproj
+          -c Release
+          -r win-x64
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:PublishTrimmed=false
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:DebugType=None
+          -o publish/win-x64
+
+      - name: Package
+        shell: pwsh
+        run: |
+          Copy-Item LICENSE,THIRD_PARTY_NOTICES.md,README.md -Destination publish/win-x64
+          Compress-Archive -Path publish/win-x64/* -DestinationPath TextPolishr-win-x64.zip
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: TextPolishr-win-x64.zip
+          generate_release_notes: true
+          body: |
+            Text Polishr for Windows x64. Download the ZIP, extract it, and run `TextPolishr.exe`.
+
+            This build is self-contained and does not require a separate .NET installation. It is currently unsigned, so Windows SmartScreen may show a warning on first launch.
+
+            Text Polishr is heavily inspired by and partially adapted from the excellent MIT-licensed [Handy](https://github.com/cjpais/Handy) project by CJ Pais. See `THIRD_PARTY_NOTICES.md` in the download and repository for full attribution.

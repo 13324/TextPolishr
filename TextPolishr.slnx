@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/TextPolishr/TextPolishr.csproj" />
+  <Project Path="tests/TextPolishr.Tests/TextPolishr.Tests.csproj" />
+</Solution>
