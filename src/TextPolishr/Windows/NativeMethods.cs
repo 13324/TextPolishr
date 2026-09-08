@@ -251,7 +251,7 @@ internal static class NativeMethods
             _ = SendInput((uint)ups.Length, ups, Marshal.SizeOf<Input>());
             throw new InvalidOperationException("Windows did not accept the keyboard input.");
         }
-        Thread.Sleep(100);
+        Thread.Sleep(35);
         if (SendInput((uint)ups.Length, ups, Marshal.SizeOf<Input>()) != ups.Length)
         {
             throw new InvalidOperationException("Windows did not release the keyboard shortcut.");

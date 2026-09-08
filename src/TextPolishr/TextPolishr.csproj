@@ -10,7 +10,7 @@
     <AssemblyName>TextPolishr</AssemblyName>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon />
-    <Version>0.1.1</Version>
+    <Version>0.1.2</Version>
     <Authors>Text Polishr contributors</Authors>
     <Description>Transform selected text anywhere on Windows with your preferred LLM.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

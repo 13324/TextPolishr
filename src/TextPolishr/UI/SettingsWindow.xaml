@@ -42,6 +42,30 @@
             <Setter Property="FontSize" Value="13" />
             <Setter Property="Margin" Value="0,0,0,7" />
         </Style>
+        <Style x:Key="PresetInput" TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource Raised}" />
+            <Setter Property="Foreground" Value="{StaticResource Ink}" />
+            <Setter Property="CaretBrush" Value="{StaticResource Signal}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Line}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="12,9" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="MinHeight" Value="42" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Style.Triggers>
+                <Trigger Property="IsKeyboardFocused" Value="True"><Setter Property="BorderBrush" Value="{StaticResource Signal}" /></Trigger>
+                <Trigger Property="IsEnabled" Value="False"><Setter Property="Opacity" Value="0.45" /></Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="PresetCombo" TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource Raised}" />
+            <Setter Property="Foreground" Value="{StaticResource Ink}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Line}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="10,7" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="MinHeight" Value="42" />
+        </Style>
         <Style TargetType="TextBox">
             <Setter Property="Background" Value="{StaticResource Raised}" />
             <Setter Property="Foreground" Value="{StaticResource Ink}" />
@@ -421,20 +445,24 @@
                                 <ScrollViewer x:Name="PresetScroll" VerticalScrollBarVisibility="Auto">
                                     <StackPanel>
                                         <TextBlock Text="Preset name" Style="{StaticResource FieldLabel}" />
-                                        <TextBox x:Name="PresetNameBox" Height="42" />
-                                        <Grid Margin="0,17,0,0"><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/></Grid.ColumnDefinitions>
-                                            <StackPanel><TextBlock Text="Provider override" Style="{StaticResource FieldLabel}"/><ComboBox x:Name="PresetProviderCombo" /></StackPanel>
-                                            <StackPanel Grid.Column="2"><TextBlock Text="Model override" Style="{StaticResource FieldLabel}"/><TextBox x:Name="PresetModelBox" Height="42" /></StackPanel>
-                                        </Grid>
-                                        <TextBlock Text="Direct shortcut" Style="{StaticResource FieldLabel}" Margin="0,17,0,7" />
-                                        <TextBox x:Name="PresetShortcutBox" Height="42" />
-                                        <CheckBox x:Name="PresetShowInMenuCheck" Content="Show in selection menu" Margin="0,18,0,0" />
+                                        <TextBox x:Name="PresetNameBox" Style="{StaticResource PresetInput}" />
                                         <DockPanel Margin="0,18,0,7">
                                             <TextBlock Text="Prompt" Style="{StaticResource FieldLabel}" Margin="0" />
                                             <TextBlock Text="${output}  ·  ${instruction}" Foreground="{StaticResource Quiet}" FontFamily="Cascadia Mono" FontSize="11" HorizontalAlignment="Right" />
                                         </DockPanel>
-                                        <TextBox x:Name="PresetPromptBox" Height="125" AcceptsReturn="True" TextWrapping="Wrap"
+                                        <TextBox x:Name="PresetPromptBox" Style="{StaticResource PresetInput}" Height="180" AcceptsReturn="True" TextWrapping="Wrap"
                                                  VerticalContentAlignment="Top" VerticalScrollBarVisibility="Auto" FontFamily="Cascadia Mono" FontSize="13" />
+                                        <Expander x:Name="PresetAdvancedOptions" Header="Advanced options" Margin="0,18,0,0">
+                                            <StackPanel Margin="0,14,0,0">
+                                                <Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/></Grid.ColumnDefinitions>
+                                                    <StackPanel><TextBlock Text="Provider override" Style="{StaticResource FieldLabel}"/><ComboBox x:Name="PresetProviderCombo" Style="{StaticResource PresetCombo}" /></StackPanel>
+                                                    <StackPanel Grid.Column="2"><TextBlock Text="Model override" Style="{StaticResource FieldLabel}"/><TextBox x:Name="PresetModelBox" Style="{StaticResource PresetInput}" /></StackPanel>
+                                                </Grid>
+                                                <TextBlock Text="Direct shortcut" Style="{StaticResource FieldLabel}" Margin="0,17,0,7" />
+                                                <TextBox x:Name="PresetShortcutBox" Style="{StaticResource PresetInput}" />
+                                                <CheckBox x:Name="PresetShowInMenuCheck" Content="Show in selection menu" Margin="0,18,0,0" />
+                                            </StackPanel>
+                                        </Expander>
                                         <Button x:Name="ApplyPresetButton" Content="Apply preset" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Right" Margin="0,18,0,0" Click="ApplyPreset_Click" />
                                     </StackPanel>
                                 </ScrollViewer>

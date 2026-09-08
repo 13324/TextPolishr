@@ -65,7 +65,7 @@ internal sealed class SelectionService
                 {
                     break;
                 }
-                await Task.Delay(15, cancellationToken);
+                await Task.Delay(10, cancellationToken);
             }
 
             if (copySequence == beforeCopy)

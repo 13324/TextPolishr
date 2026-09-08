@@ -10,7 +10,7 @@ namespace TextPolishr.Windows;
 /// </summary>
 internal sealed class ReliablePasteService : NativeWindow, IDisposable
 {
-    private static readonly TimeSpan QuietPeriod = TimeSpan.FromMilliseconds(200);
+    private static readonly TimeSpan QuietPeriod = TimeSpan.FromMilliseconds(125);
     private static readonly TimeSpan RestoreTimeout = TimeSpan.FromSeconds(8);
     private readonly System.Windows.Forms.Timer _timer;
     private readonly Action _sendPasteChord;
@@ -23,7 +23,7 @@ internal sealed class ReliablePasteService : NativeWindow, IDisposable
             Caption = "TextPolishrClipboardOwner",
             Parent = new nint(-3) // HWND_MESSAGE
         });
-        _timer = new System.Windows.Forms.Timer { Interval = 25 };
+        _timer = new System.Windows.Forms.Timer { Interval = 15 };
         _timer.Tick += OnTimer;
         _sendPasteChord = sendPasteChord ?? (() => NativeMethods.SendChord(NativeMethods.VkControl, NativeMethods.VkV));
     }

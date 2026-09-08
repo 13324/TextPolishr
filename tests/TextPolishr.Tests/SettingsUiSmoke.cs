@@ -6,6 +6,7 @@ using TextPolishr.Core;
 using TextPolishr.UI;
 using WpfButton = System.Windows.Controls.Button;
 using WpfComboBox = System.Windows.Controls.ComboBox;
+using WpfExpander = System.Windows.Controls.Expander;
 using WpfListBox = System.Windows.Controls.ListBox;
 using WpfPasswordBox = System.Windows.Controls.PasswordBox;
 using WpfTextBox = System.Windows.Controls.TextBox;
@@ -41,6 +42,11 @@ internal static class SettingsUiSmoke
             prompt.Text = "Revise this text:\n${output}";
             list.SelectedIndex = 1;
             Assert(settings.Actions[0].Name == "Editorial polish", "Preset edits were lost when switching presets.");
+            var advanced = Find<WpfExpander>(window, "PresetAdvancedOptions");
+            advanced.IsExpanded = true;
+            var modelOverride = Find<WpfTextBox>(window, "PresetModelBox");
+            modelOverride.Text = "preset-test-model";
+            Assert(modelOverride.Text == "preset-test-model", "Preset model override was not rendered.");
 
             var modelNav = Find<WpfButton>(window, "ModelNav");
             modelNav.RaiseEvent(new RoutedEventArgs(WpfButton.ClickEvent));

@@ -2,6 +2,19 @@
 
 All notable changes to Text Polishr are documented here.
 
+## [0.1.2] - 2026-09-08
+
+### Fixed
+
+- Preset name, shortcut, provider, and model fields now render their typed text reliably.
+- Moved provider, model, shortcut, and menu visibility into collapsed advanced options below the prompt.
+
+### Changed
+
+- Reduced local copy, validation, paste, and custom-dialog waiting periods.
+- Added content-free timing metadata for capture, LLM, validation, and paste stages.
+- Added the project cat logo and shortened the Handy attribution in the README.
+
 ## [0.1.1] - 2026-09-08
 
 ### Changed

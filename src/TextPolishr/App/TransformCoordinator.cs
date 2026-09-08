@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using TextPolishr.Core;
 using TextPolishr.UI;
 using TextPolishr.Windows;
@@ -63,14 +64,18 @@ internal sealed class TransformCoordinator : IDisposable
 
         try
         {
+            var captureTimer = Stopwatch.StartNew();
             var selection = await _selection.CaptureAsync(_operation!.Token);
+            captureTimer.Stop();
             if (selection is null)
             {
+                DiagnosticLog.Info("timing", $"capture_ms={captureTimer.ElapsedMilliseconds}; result=no_selection");
                 var detail = string.IsNullOrWhiteSpace(_selection.LastFailure) ? string.Empty : $" · {_selection.LastFailure}";
                 _overlay.ShowStatus($"No text selected{detail}", OverlayKind.Warning, 2600);
                 End();
                 return;
             }
+            DiagnosticLog.Info("timing", $"capture_ms={captureTimer.ElapsedMilliseconds}; result=captured");
             if (selection.SelectedText.Length > _settings.CharacterLimit)
             {
                 _overlay.ShowStatus($"Selection too long · {_settings.CharacterLimit:N0} character limit", OverlayKind.Warning, 2600);
@@ -145,7 +150,7 @@ internal sealed class TransformCoordinator : IDisposable
     {
         try
         {
-            await Task.Delay(100, _operation!.Token);
+            await Task.Delay(40, _operation!.Token);
             await ExecuteAsync(new TransformRequest(selection, action, instruction));
         }
         catch (OperationCanceledException)
@@ -156,6 +161,7 @@ internal sealed class TransformCoordinator : IDisposable
 
     private async Task ExecuteAsync(TransformRequest request)
     {
+        var totalTimer = Stopwatch.StartNew();
         try
         {
             var token = _operation!.Token;
@@ -171,6 +177,7 @@ internal sealed class TransformCoordinator : IDisposable
             var prompt = PromptTemplate.Render(request.Action.Prompt, request.Selection.SelectedText, request.Instruction);
 
             _overlay.ShowStatus($"{request.Action.Name}…", OverlayKind.Progress);
+            var requestTimer = Stopwatch.StartNew();
             var replacement = await _llm.TransformAsync(
                 provider,
                 apiKey,
@@ -178,17 +185,26 @@ internal sealed class TransformCoordinator : IDisposable
                 prompt,
                 TimeSpan.FromSeconds(_settings.RequestTimeoutSeconds),
                 token);
+            requestTimer.Stop();
 
             _overlay.ShowStatus("Validating selection…", OverlayKind.Progress);
+            var validationTimer = Stopwatch.StartNew();
             if (!await _selection.ValidateAsync(request.Selection, token))
             {
+                validationTimer.Stop();
+                DiagnosticLog.Info("timing", $"llm_ms={requestTimer.ElapsedMilliseconds}; validate_ms={validationTimer.ElapsedMilliseconds}; result=selection_changed");
                 _history.Add(request.Action.Name, request.Selection.SelectedText, replacement);
                 _overlay.ShowStatus("Selection changed · Nothing replaced", OverlayKind.Warning, 2800);
                 return;
             }
+            validationTimer.Stop();
 
             _overlay.ShowStatus("Replacing text…", OverlayKind.Progress);
+            var pasteTimer = Stopwatch.StartNew();
             var confirmed = await _paste.PasteAsync(replacement);
+            pasteTimer.Stop();
+            totalTimer.Stop();
+            DiagnosticLog.Info("timing", $"llm_ms={requestTimer.ElapsedMilliseconds}; validate_ms={validationTimer.ElapsedMilliseconds}; paste_ms={pasteTimer.ElapsedMilliseconds}; total_ms={totalTimer.ElapsedMilliseconds}; result={(confirmed ? "replaced" : "paste_unconfirmed")}");
             if (!confirmed)
             {
                 _history.Add(request.Action.Name, request.Selection.SelectedText, replacement);

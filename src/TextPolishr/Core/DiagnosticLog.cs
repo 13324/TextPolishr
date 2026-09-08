@@ -26,6 +26,24 @@ internal static class DiagnosticLog
         }
     }
 
+    internal static void Info(string operation, string message)
+    {
+        try
+        {
+            lock (Sync)
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(PathName)!);
+                File.AppendAllText(
+                    PathName,
+                    $"{DateTimeOffset.Now:O} INFO {operation}: {Sanitize(message)}{Environment.NewLine}");
+            }
+        }
+        catch
+        {
+            // Diagnostics must never affect the transformation workflow.
+        }
+    }
+
     private static string Describe(Exception exception)
     {
         var parts = new List<string>();

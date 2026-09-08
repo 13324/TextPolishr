@@ -1,3 +1,5 @@
+<img src="docs/assets/text-polishr-cat.svg" width="72" align="left" alt="Text Polishr cat logo" />
+
 # Text Polishr
 
 Transform selected text in any Windows application with your preferred LLM —
@@ -15,24 +17,6 @@ and the revised text replaces the selection. The original application keeps
 focus, and its normal `Ctrl+Z` undo remains available.
 
 ![Text Polishr preset editor](docs/assets/presets.png)
-
-## A very important thank-you to Handy
-
-Text Polishr would not exist in this form without
-**[Handy](https://handy.computer)** by CJ Pais and its
-**[open-source repository](https://github.com/cjpais/Handy)**.
-
-Handy is genuinely excellent. Its careful work on system-wide text insertion,
-Windows clipboard transactions, delayed rendering, provider configuration, and
-LLM post-processing demonstrated how this kind of tool should be engineered.
-Text Polishr is heavily inspired by that work, and important parts of its
-clipboard transaction architecture and provider configuration were adapted
-from Handy's MIT-licensed source. Text Polishr removes the speech stack and
-focuses that foundation on selected-text rewriting.
-
-If you want excellent system-wide voice dictation and transcription, use
-[Handy](https://handy.computer). Full license attribution is preserved in
-[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 ## What it does
 
@@ -93,7 +77,7 @@ Text Polishr stores these files locally:
 
 - `%APPDATA%\TextPolishr\settings.json` — configuration and API keys in plain text
 - `%APPDATA%\TextPolishr\history.json` — up to three original/result pairs
-- `%APPDATA%\TextPolishr\diagnostics.log` — technical errors, never selected text
+- `%APPDATA%\TextPolishr\diagnostics.log` — technical errors and timing metadata, never selected text
 
 ## Compatibility boundary
 
@@ -139,3 +123,10 @@ problems should follow [SECURITY.md](SECURITY.md), not a public issue.
 
 Text Polishr is licensed under the [MIT License](LICENSE). Adapted Handy code
 retains its original MIT notice in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+## Attribution
+
+The reliable Windows clipboard transaction and parts of the provider
+configuration are inspired by and partially adapted from the excellent
+MIT-licensed [Handy](https://handy.computer) project by CJ Pais. Full notice:
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
