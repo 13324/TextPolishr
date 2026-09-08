@@ -237,6 +237,62 @@ internal sealed class PolishrColorTable : ProfessionalColorTable
     public override Color SeparatorLight => Theme.BorderSoft;
 }
 
+internal sealed class CatLogo : Control
+{
+    public CatLogo()
+    {
+        SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint |
+                 ControlStyles.OptimizedDoubleBuffer | ControlStyles.SupportsTransparentBackColor, true);
+        BackColor = Color.Transparent;
+        Size = new Size(38, 38);
+    }
+
+    protected override void OnPaint(PaintEventArgs eventArgs)
+    {
+        base.OnPaint(eventArgs);
+        Draw(eventArgs.Graphics, ClientRectangle);
+    }
+
+    internal static void Draw(Graphics graphics, Rectangle bounds)
+    {
+        graphics.SmoothingMode = SmoothingMode.AntiAlias;
+        var scale = Math.Min(bounds.Width, bounds.Height) / 48F;
+        var x = bounds.X + (bounds.Width - 48F * scale) / 2F;
+        var y = bounds.Y + (bounds.Height - 48F * scale) / 2F;
+        var state = graphics.Save();
+        graphics.TranslateTransform(x, y);
+        graphics.ScaleTransform(scale, scale);
+        using var fill = new SolidBrush(Color.FromArgb(254, 254, 251));
+        using var ink = new Pen(Theme.Text, 2.6F) { LineJoin = LineJoin.Round, StartCap = LineCap.Round, EndCap = LineCap.Round };
+        using var blush = new SolidBrush(Color.FromArgb(242, 181, 173));
+        using var rose = new SolidBrush(Color.FromArgb(239, 155, 147));
+
+        using var head = new GraphicsPath();
+        head.AddLines([new PointF(7, 23), new PointF(8, 9), new PointF(18, 15), new PointF(29, 14), new PointF(40, 8), new PointF(40, 24)]);
+        head.AddArc(7, 12, 34, 31, 0, 180);
+        head.CloseFigure();
+        graphics.FillPath(fill, head);
+        graphics.DrawPath(ink, head);
+        graphics.FillEllipse(blush, 11, 30, 7, 3);
+        graphics.FillEllipse(blush, 30, 30, 7, 3);
+        graphics.FillEllipse(Brushes.White, 15, 23, 4, 5);
+        graphics.FillEllipse(Brushes.White, 29, 23, 4, 5);
+        graphics.FillEllipse(Brushes.Black, 16, 24, 2.5F, 3.5F);
+        graphics.FillEllipse(Brushes.Black, 30, 24, 2.5F, 3.5F);
+        graphics.FillEllipse(rose, 22, 29, 4, 2.5F);
+        graphics.DrawLine(ink, 24, 32, 24, 34);
+        graphics.DrawArc(ink, 19, 31, 5, 5, 0, 90);
+        graphics.DrawArc(ink, 24, 31, 5, 5, 90, 90);
+
+        graphics.FillEllipse(fill, 32, 32, 11, 12);
+        graphics.DrawEllipse(ink, 32, 32, 11, 12);
+        graphics.DrawLine(ink, 35, 37, 35, 39);
+        graphics.DrawLine(ink, 38, 36, 38, 39);
+        graphics.DrawLine(ink, 41, 37, 41, 39);
+        graphics.Restore(state);
+    }
+}
+
 internal static class AppIcon
 {
     internal static Icon Create()
@@ -244,12 +300,8 @@ internal static class AppIcon
         using var bitmap = new Bitmap(32, 32);
         using var graphics = Graphics.FromImage(bitmap);
         graphics.SmoothingMode = SmoothingMode.AntiAlias;
-        using var background = new SolidBrush(Theme.Accent);
-        graphics.FillPath(background, Geometry.RoundRect(new Rectangle(2, 2, 28, 28), 8));
-        using var mark = new Pen(Color.White, 2.6F) { StartCap = LineCap.Round, EndCap = LineCap.Round };
-        graphics.DrawLine(mark, 10, 10, 22, 10);
-        graphics.DrawLine(mark, 16, 10, 16, 22);
-        graphics.DrawLine(mark, 11, 22, 21, 22);
+        graphics.Clear(Color.Transparent);
+        CatLogo.Draw(graphics, new Rectangle(1, 1, 30, 30));
         var handle = bitmap.GetHicon();
         try
         {

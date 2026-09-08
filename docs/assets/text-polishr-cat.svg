@@ -1,17 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
   <title id="title">Text Polishr cat</title>
-  <desc id="desc">A white comic-style cat cleaning its raised paw on an oxide-red square.</desc>
-  <rect width="256" height="256" rx="56" fill="#B64026"/>
-  <path d="M69 189c0-47 24-78 60-78 37 0 62 29 62 78v12H69z" fill="#FDFEFC" stroke="#17212B" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M91 128c-8-17-9-39 1-59l22 17c10-5 21-6 31-2l24-16c9 22 8 44-2 61-8 13-21 21-37 21-17 0-30-8-38-22z" fill="#FDFEFC" stroke="#17212B" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M117 108h2M146 107h2" fill="none" stroke="#17212B" stroke-width="9" stroke-linecap="round"/>
-  <path d="M128 118l6 5-6 4" fill="none" stroke="#17212B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M108 125l-20 3M108 132l-22 9M151 125l20 2M151 132l21 9" fill="none" stroke="#17212B" stroke-width="4" stroke-linecap="round"/>
-  <path d="M101 156c8 10 18 14 30 14 13 0 23-5 31-14" fill="none" stroke="#17212B" stroke-width="5" stroke-linecap="round"/>
-  <path d="M153 170c18-11 32-3 30 15-2 18-19 24-34 16" fill="#FDFEFC" stroke="#17212B" stroke-width="8" stroke-linejoin="round"/>
-  <path d="M147 166c5 12 6 23 1 34" fill="none" stroke="#17212B" stroke-width="7" stroke-linecap="round"/>
-  <path d="M86 202c-20 0-31-11-28-26 3-16 17-23 31-17" fill="none" stroke="#FDFEFC" stroke-width="15" stroke-linecap="round"/>
-  <path d="M154 151c5 4 8 9 9 15" fill="none" stroke="#EFA18E" stroke-width="8" stroke-linecap="round"/>
-  <circle cx="117" cy="107" r="2.5" fill="#B64026"/>
-  <circle cx="148" cy="107" r="2.5" fill="#B64026"/>
+  <desc id="desc">A sweet white comic cat grooming its raised paw.</desc>
+  <g stroke="#17212B" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M72 203c0-47 23-74 58-74 36 0 58 27 58 74v12H72z" fill="#FEFEFB"/>
+    <path d="M185 193c27 1 38 19 28 36-10 17-32 12-40-2" fill="none"/>
+    <path d="M101 136c-12-12-17-31-13-56l26 16c10-6 24-7 35-2l25-16c5 25 0 46-13 59-15 15-45 15-60-1z" fill="#FEFEFB"/>
+    <path d="M107 126c0 31 18 51 42 51 25 0 42-20 42-51" fill="#FEFEFB"/>
+    <path d="M140 160c8 5 17 5 24 0" fill="none"/>
+    <path d="M114 135h2M166 135h2" fill="none" stroke-width="10"/>
+    <path d="M139 143l5 4-5 4" fill="none" stroke-width="5"/>
+    <path d="M132 150l-25-3M132 157l-26 6M163 150l25-3M163 157l26 6" fill="none" stroke-width="4"/>
+    <path d="M126 104l-12-8M158 102l12-8" fill="none" stroke="#EAA08E" stroke-width="7"/>
+    <path d="M96 184c-9-19-5-42 10-51 13-8 28 2 29 18 2 20-8 40-25 48" fill="#FEFEFB"/>
+    <path d="M103 153c4-5 9-6 14-4M100 164c4-5 10-6 15-4M101 176c4-4 9-5 13-3" fill="none" stroke-width="4"/>
+  </g>
+  <path d="M145 149c2 4 7 7 12 7s10-3 12-7" fill="#EF9B93"/>
+  <ellipse cx="105" cy="151" rx="10" ry="5" fill="#F2B5AD" opacity=".7"/>
+  <ellipse cx="177" cy="151" rx="10" ry="5" fill="#F2B5AD" opacity=".7"/>
 </svg>

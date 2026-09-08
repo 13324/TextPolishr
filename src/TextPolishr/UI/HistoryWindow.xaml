@@ -14,6 +14,7 @@
         <SolidColorBrush x:Key="Line" Color="#D2DAD3"/><SolidColorBrush x:Key="Ink" Color="#17212B"/>
         <SolidColorBrush x:Key="Muted" Color="#435260"/><SolidColorBrush x:Key="Quiet" Color="#647482"/>
         <SolidColorBrush x:Key="Signal" Color="#B64026"/><SolidColorBrush x:Key="SignalSoft" Color="#F8E7E1"/>
+        <DataTemplate x:Key="CatMark"><Viewbox Stretch="Uniform"><Canvas Width="48" Height="48"><Path Data="M7,23 L8,9 L18,15 L29,14 L40,8 L40,24 C40,35 33,42 24,42 C14,42 7,35 7,23 Z" Fill="#FEFEFB" Stroke="#17212B" StrokeThickness="2.6" StrokeLineJoin="Round"/><Ellipse Canvas.Left="16" Canvas.Top="24" Width="3" Height="4" Fill="#17212B"/><Ellipse Canvas.Left="30" Canvas.Top="24" Width="3" Height="4" Fill="#17212B"/><Ellipse Canvas.Left="22" Canvas.Top="29" Width="4" Height="2.5" Fill="#EF9B93"/><Ellipse Canvas.Left="11" Canvas.Top="30" Width="7" Height="3" Fill="#F2B5AD" Opacity=".7"/><Ellipse Canvas.Left="30" Canvas.Top="30" Width="7" Height="3" Fill="#F2B5AD" Opacity=".7"/><Ellipse Canvas.Left="32" Canvas.Top="32" Width="11" Height="12" Fill="#FEFEFB" Stroke="#17212B" StrokeThickness="2.6"/></Canvas></Viewbox></DataTemplate>
         <Style x:Key="ButtonBase" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource Ink}"/><Setter Property="Background" Value="{StaticResource Raised}"/>
             <Setter Property="BorderBrush" Value="{StaticResource Line}"/><Setter Property="BorderThickness" Value="1"/>
@@ -41,7 +42,7 @@
             <Grid Grid.Row="0" MouseLeftButtonDown="Header_MouseLeftButtonDown">
                 <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="25,0,0,0">
-                    <Border Width="38" Height="38" CornerRadius="9" Background="{StaticResource Signal}"><TextBlock Text="TP" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+                    <ContentControl Width="38" Height="38" ContentTemplate="{StaticResource CatMark}"/>
                     <StackPanel Margin="12,0,0,0" VerticalAlignment="Center"><TextBlock Text="Text Polishr" FontWeight="SemiBold" FontSize="17"/><TextBlock Text="RECENT TRANSFORMATIONS" Foreground="{StaticResource Quiet}" FontWeight="Bold" FontSize="10"/></StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" shell:WindowChrome.IsHitTestVisibleInChrome="True">

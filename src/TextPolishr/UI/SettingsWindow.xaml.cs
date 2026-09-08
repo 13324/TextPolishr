@@ -246,6 +246,65 @@ public partial class SettingsWindow : Window
 
     private void Save_Click(object sender, RoutedEventArgs e) => Persist(true);
 
+    private void ShortcutBox_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+    {
+        if (sender is System.Windows.Controls.TextBox box)
+        {
+            box.SelectAll();
+        }
+    }
+
+    private void ShortcutBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+    {
+        if (sender is not System.Windows.Controls.TextBox box)
+        {
+            return;
+        }
+
+        var key = e.Key == Key.System ? e.SystemKey : e.Key;
+        if (key is Key.Back or Key.Delete or Key.Escape)
+        {
+            box.Clear();
+            e.Handled = true;
+            return;
+        }
+
+        var shortcut = FormatShortcut(key, Keyboard.Modifiers);
+        if (shortcut is not null)
+        {
+            box.Text = shortcut;
+            box.CaretIndex = shortcut.Length;
+        }
+        e.Handled = true;
+    }
+
+    internal static string? FormatShortcut(Key key, ModifierKeys modifiers)
+    {
+        if (key is Key.LeftCtrl or Key.RightCtrl or Key.LeftAlt or Key.RightAlt or
+            Key.LeftShift or Key.RightShift or Key.LWin or Key.RWin or Key.None)
+        {
+            return null;
+        }
+        if (modifiers == ModifierKeys.None)
+        {
+            return null;
+        }
+
+        var parts = new List<string>(4);
+        if (modifiers.HasFlag(ModifierKeys.Control)) parts.Add("Ctrl");
+        if (modifiers.HasFlag(ModifierKeys.Alt)) parts.Add("Alt");
+        if (modifiers.HasFlag(ModifierKeys.Shift)) parts.Add("Shift");
+        if (modifiers.HasFlag(ModifierKeys.Windows)) parts.Add("Win");
+        parts.Add(key switch
+        {
+            Key.Return => "Enter",
+            Key.Space => "Space",
+            Key.Escape => "Esc",
+            _ => key.ToString()
+        });
+        return string.Join('+', parts);
+    }
+
     private void Persist(bool showConfirmation)
     {
         CommitPreset();

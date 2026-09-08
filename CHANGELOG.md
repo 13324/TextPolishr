@@ -2,6 +2,17 @@
 
 All notable changes to Text Polishr are documented here.
 
+## [0.1.3] - 2026-09-08
+
+### Added
+
+- Press-to-record shortcut fields for the preset menu and individual presets.
+- White cat mark used consistently across the application and documentation.
+
+### Changed
+
+- Clarified that model overrides are optional and use the global model when blank.
+
 ## [0.1.2] - 2026-09-08
 
 ### Fixed

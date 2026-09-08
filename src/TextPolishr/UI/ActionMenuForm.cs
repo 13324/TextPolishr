@@ -19,18 +19,17 @@ internal sealed class ActionMenuForm : Form
         var visibleActions = actions.Where(action => action.ShowInMenu).ToArray();
         ClientSize = new Size(356, 112 + (visibleActions.Length + 2) * 50);
 
-        var brand = new PillLabel
+        var brand = new CatLogo
         {
-            Text = "TEXT POLISHR",
             Location = new Point(16, 15),
-            Size = new Size(104, 24)
+            Size = new Size(30, 30)
         };
         var title = new Label
         {
             Text = "Select a preset",
             ForeColor = Theme.Text,
             Font = Theme.DisplayFont(15F, FontStyle.Bold),
-            Location = new Point(16, 50),
+            Location = new Point(54, 50),
             AutoSize = true
         };
         Controls.AddRange([brand, title]);

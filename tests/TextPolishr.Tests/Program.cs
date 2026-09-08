@@ -1,7 +1,9 @@
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Input;
 using TextPolishr.Core;
+using TextPolishr.UI;
 using TextPolishr.Windows;
 
 namespace TextPolishr.Tests;
@@ -19,6 +21,7 @@ internal static class Program
             ("Settings migration", TestSettingsMigration),
             ("Three-entry history", TestHistoryCapacity),
             ("Shortcut parser", TestShortcutParser),
+            ("Shortcut capture formatting", TestShortcutCaptureFormatting),
             ("Native input layout", TestNativeInputLayout),
             ("Plain LLM response", TestPlainLlmResponse),
             ("Structured LLM response", TestStructuredLlmResponse),
@@ -89,6 +92,15 @@ internal static class Program
         True(shortcut.Modifiers != 0);
         Equal((uint)Keys.Space, shortcut.VirtualKey);
         True(!HotkeyManager.Shortcut.TryParse("Ctrl+NothingHere", out _));
+    }
+
+    private static void TestShortcutCaptureFormatting()
+    {
+        Equal("Ctrl+Alt+G", SettingsWindow.FormatShortcut(Key.G, ModifierKeys.Control | ModifierKeys.Alt));
+        Equal("Ctrl+Shift+Space", SettingsWindow.FormatShortcut(Key.Space, ModifierKeys.Control | ModifierKeys.Shift));
+        Equal("Win+Enter", SettingsWindow.FormatShortcut(Key.Return, ModifierKeys.Windows));
+        True(SettingsWindow.FormatShortcut(Key.LeftCtrl, ModifierKeys.Control) is null);
+        True(SettingsWindow.FormatShortcut(Key.G, ModifierKeys.None) is null);
     }
 
     private static void TestNativeInputLayout()

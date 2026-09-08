@@ -47,6 +47,7 @@ internal static class SettingsUiSmoke
             var modelOverride = Find<WpfTextBox>(window, "PresetModelBox");
             modelOverride.Text = "preset-test-model";
             Assert(modelOverride.Text == "preset-test-model", "Preset model override was not rendered.");
+            advanced.IsExpanded = false;
 
             var modelNav = Find<WpfButton>(window, "ModelNav");
             modelNav.RaiseEvent(new RoutedEventArgs(WpfButton.ClickEvent));

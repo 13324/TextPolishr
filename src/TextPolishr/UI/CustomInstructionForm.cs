@@ -21,15 +21,10 @@ internal sealed class CustomInstructionForm : Form
         Padding = new Padding(1);
         TopMost = true;
 
-        var mark = new PillLabel
+        var mark = new CatLogo
         {
-            Text = "TP",
-            Location = new Point(24, 20),
-            Size = new Size(36, 36),
-            Radius = 9,
-            PillColor = Theme.Accent,
-            ForeColor = Color.White,
-            Font = Theme.DisplayFont(9.5F, FontStyle.Bold)
+            Location = new Point(24, 17),
+            Size = new Size(38, 38)
         };
         var eyebrow = new Label
         {

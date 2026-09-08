@@ -22,6 +22,18 @@
         <SolidColorBrush x:Key="Quiet" Color="#647482" />
         <SolidColorBrush x:Key="Signal" Color="#B64026" />
         <SolidColorBrush x:Key="SignalSoft" Color="#F8E7E1" />
+        <DataTemplate x:Key="CatMark">
+            <Viewbox Stretch="Uniform">
+                <Canvas Width="48" Height="48">
+                    <Path Data="M7,23 L8,9 L18,15 L29,14 L40,8 L40,24 C40,35 33,42 24,42 C14,42 7,35 7,23 Z" Fill="#FEFEFB" Stroke="#17212B" StrokeThickness="2.6" StrokeLineJoin="Round" />
+                    <Ellipse Canvas.Left="16" Canvas.Top="24" Width="3" Height="4" Fill="#17212B" /><Ellipse Canvas.Left="30" Canvas.Top="24" Width="3" Height="4" Fill="#17212B" />
+                    <Ellipse Canvas.Left="22" Canvas.Top="29" Width="4" Height="2.5" Fill="#EF9B93" />
+                    <Ellipse Canvas.Left="11" Canvas.Top="30" Width="7" Height="3" Fill="#F2B5AD" Opacity=".7" /><Ellipse Canvas.Left="30" Canvas.Top="30" Width="7" Height="3" Fill="#F2B5AD" Opacity=".7" />
+                    <Ellipse Canvas.Left="32" Canvas.Top="32" Width="11" Height="12" Fill="#FEFEFB" Stroke="#17212B" StrokeThickness="2.6" />
+                    <Line X1="35" Y1="37" X2="35" Y2="39" Stroke="#17212B" StrokeThickness="2" StrokeStartLineCap="Round" /><Line X1="38" Y1="36" X2="38" Y2="39" Stroke="#17212B" StrokeThickness="2" StrokeStartLineCap="Round" /><Line X1="41" Y1="37" X2="41" Y2="39" Stroke="#17212B" StrokeThickness="2" StrokeStartLineCap="Round" />
+                </Canvas>
+            </Viewbox>
+        </DataTemplate>
 
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="{StaticResource Ink}" />
@@ -339,9 +351,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="25,0,0,0">
-                    <Border Width="38" Height="38" CornerRadius="9" Background="{StaticResource Signal}">
-                        <TextBlock Text="TP" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    </Border>
+                    <ContentControl Width="38" Height="38" ContentTemplate="{StaticResource CatMark}" />
                     <StackPanel Margin="12,0,0,0" VerticalAlignment="Center">
                         <TextBlock Text="Text Polishr" FontFamily="Segoe UI Variable Display" FontWeight="SemiBold" FontSize="17" />
                         <TextBlock Text="TEXT TRANSFORMATION" Style="{StaticResource Eyebrow}" FontSize="10" Foreground="{StaticResource Quiet}" />
@@ -387,7 +397,11 @@
                                 <Grid.ColumnDefinitions><ColumnDefinition Width="200"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="20"/><RowDefinition Height="Auto"/><RowDefinition Height="20"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
                                 <TextBlock Text="Preset menu shortcut" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" />
-                                <TextBox x:Name="MenuShortcutBox" Grid.Column="1" />
+                                <StackPanel Grid.Column="1">
+                                    <TextBox x:Name="MenuShortcutBox" Style="{StaticResource PresetInput}" PreviewKeyDown="ShortcutBox_PreviewKeyDown" GotKeyboardFocus="ShortcutBox_GotKeyboardFocus"
+                                             ToolTip="Click, then press the complete key combination. Backspace clears it." />
+                                    <TextBlock Text="Click the field, then press the complete key combination. Backspace clears it." Foreground="{StaticResource Quiet}" FontSize="11" Margin="2,6,0,0" />
+                                </StackPanel>
                                 <StackPanel Grid.Row="2" VerticalAlignment="Center"><TextBlock Text="Maximum characters" Style="{StaticResource FieldLabel}"/><TextBlock Text="Default: 10,000" Foreground="{StaticResource Quiet}" FontSize="11"/></StackPanel>
                                 <TextBox x:Name="CharacterLimitBox" Grid.Row="2" Grid.Column="1" />
                                 <StackPanel Grid.Row="4" VerticalAlignment="Center"><TextBlock Text="Request timeout" Style="{StaticResource FieldLabel}"/><TextBlock Text="Seconds before aborting" Foreground="{StaticResource Quiet}" FontSize="11"/></StackPanel>
@@ -426,7 +440,7 @@
                         <StackPanel>
                             <TextBlock Text="PRESETS" Style="{StaticResource Eyebrow}" />
                             <TextBlock Text="Preset configuration" Style="{StaticResource PageTitle}" Margin="0,7,0,4" />
-                            <TextBlock Text="Each preset has a prompt, shortcut, provider, and optional model override." Foreground="{StaticResource Muted}" />
+                            <TextBlock Text="The prompt controls the result. Shortcut and model options are optional." Foreground="{StaticResource Muted}" />
                         </StackPanel>
                         <Grid Grid.Row="2">
                             <Grid.ColumnDefinitions><ColumnDefinition Width="240"/><ColumnDefinition Width="18"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
@@ -455,11 +469,17 @@
                                         <Expander x:Name="PresetAdvancedOptions" Header="Advanced options" Margin="0,18,0,0">
                                             <StackPanel Margin="0,14,0,0">
                                                 <Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/></Grid.ColumnDefinitions>
-                                                    <StackPanel><TextBlock Text="Provider override" Style="{StaticResource FieldLabel}"/><ComboBox x:Name="PresetProviderCombo" Style="{StaticResource PresetCombo}" /></StackPanel>
-                                                    <StackPanel Grid.Column="2"><TextBlock Text="Model override" Style="{StaticResource FieldLabel}"/><TextBox x:Name="PresetModelBox" Style="{StaticResource PresetInput}" /></StackPanel>
+                                                    <StackPanel><TextBlock Text="Provider override (optional)" Style="{StaticResource FieldLabel}"/><ComboBox x:Name="PresetProviderCombo" Style="{StaticResource PresetCombo}" /></StackPanel>
+                                                    <StackPanel Grid.Column="2">
+                                                        <TextBlock Text="Model override (optional)" Style="{StaticResource FieldLabel}"/>
+                                                        <TextBox x:Name="PresetModelBox" Style="{StaticResource PresetInput}" />
+                                                        <TextBlock Text="Leave blank to use the global model. Enter an exact model ID only for a different model." Foreground="{StaticResource Quiet}" FontSize="11" TextWrapping="Wrap" Margin="2,6,0,0" />
+                                                    </StackPanel>
                                                 </Grid>
                                                 <TextBlock Text="Direct shortcut" Style="{StaticResource FieldLabel}" Margin="0,17,0,7" />
-                                                <TextBox x:Name="PresetShortcutBox" Style="{StaticResource PresetInput}" />
+                                                <TextBox x:Name="PresetShortcutBox" Style="{StaticResource PresetInput}" PreviewKeyDown="ShortcutBox_PreviewKeyDown" GotKeyboardFocus="ShortcutBox_GotKeyboardFocus"
+                                                         ToolTip="Click, then press the complete key combination. Backspace clears it." />
+                                                <TextBlock Text="Click the field, then press the complete key combination. Backspace clears it." Foreground="{StaticResource Quiet}" FontSize="11" Margin="2,6,0,0" />
                                                 <CheckBox x:Name="PresetShowInMenuCheck" Content="Show in selection menu" Margin="0,18,0,0" />
                                             </StackPanel>
                                         </Expander>
