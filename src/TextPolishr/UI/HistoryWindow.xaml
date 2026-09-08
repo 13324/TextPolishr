@@ -4,16 +4,16 @@
         xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
         Title="Recent transformations" Width="1100" Height="720" MinWidth="860" MinHeight="540"
         WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResize"
-        Background="#0F0F0D" Foreground="#F6F4EE" FontFamily="Segoe UI Variable Text" FontSize="14">
+        Background="#F7F8F5" Foreground="#17212B" FontFamily="Segoe UI Variable Text" FontSize="14">
     <shell:WindowChrome.WindowChrome>
         <shell:WindowChrome CaptionHeight="70" ResizeBorderThickness="6" CornerRadius="14" GlassFrameThickness="0" UseAeroCaptionButtons="False" />
     </shell:WindowChrome.WindowChrome>
     <Window.Resources>
-        <SolidColorBrush x:Key="Canvas" Color="#0F0F0D"/><SolidColorBrush x:Key="Panel" Color="#181815"/>
-        <SolidColorBrush x:Key="Raised" Color="#20201C"/><SolidColorBrush x:Key="Hover" Color="#2A2924"/>
-        <SolidColorBrush x:Key="Line" Color="#35342E"/><SolidColorBrush x:Key="Ink" Color="#F6F4EE"/>
-        <SolidColorBrush x:Key="Muted" Color="#A19F96"/><SolidColorBrush x:Key="Quiet" Color="#6B6962"/>
-        <SolidColorBrush x:Key="Signal" Color="#F25337"/><SolidColorBrush x:Key="SignalSoft" Color="#411F18"/>
+        <SolidColorBrush x:Key="Canvas" Color="#F7F8F5"/><SolidColorBrush x:Key="Panel" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Raised" Color="#F4F6F3"/><SolidColorBrush x:Key="Hover" Color="#E9EDE8"/>
+        <SolidColorBrush x:Key="Line" Color="#D2DAD3"/><SolidColorBrush x:Key="Ink" Color="#17212B"/>
+        <SolidColorBrush x:Key="Muted" Color="#435260"/><SolidColorBrush x:Key="Quiet" Color="#647482"/>
+        <SolidColorBrush x:Key="Signal" Color="#B64026"/><SolidColorBrush x:Key="SignalSoft" Color="#F8E7E1"/>
         <Style x:Key="ButtonBase" TargetType="Button">
             <Setter Property="Foreground" Value="{StaticResource Ink}"/><Setter Property="Background" Value="{StaticResource Raised}"/>
             <Setter Property="BorderBrush" Value="{StaticResource Line}"/><Setter Property="BorderThickness" Value="1"/>
@@ -30,7 +30,7 @@
             <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ScrollBar"><Grid Background="Transparent">
                 <Track x:Name="PART_Track" IsDirectionReversed="True">
                     <Track.DecreaseRepeatButton><RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0"/></Track.DecreaseRepeatButton>
-                    <Track.Thumb><Thumb><Thumb.Template><ControlTemplate TargetType="Thumb"><Border Background="#555249" CornerRadius="5" Margin="2"/></ControlTemplate></Thumb.Template></Thumb></Track.Thumb>
+                    <Track.Thumb><Thumb><Thumb.Template><ControlTemplate TargetType="Thumb"><Border Background="#AEB8AF" CornerRadius="5" Margin="2"/></ControlTemplate></Thumb.Template></Thumb></Track.Thumb>
                     <Track.IncreaseRepeatButton><RepeatButton Command="ScrollBar.PageDownCommand" Opacity="0"/></Track.IncreaseRepeatButton>
                 </Track></Grid></ControlTemplate></Setter.Value></Setter>
         </Style>
@@ -42,7 +42,7 @@
                 <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="25,0,0,0">
                     <Border Width="38" Height="38" CornerRadius="9" Background="{StaticResource Signal}"><TextBlock Text="TP" FontWeight="Bold" FontSize="13" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
-                    <StackPanel Margin="12,0,0,0" VerticalAlignment="Center"><TextBlock Text="Text Polishr" FontWeight="SemiBold" FontSize="17"/><TextBlock Text="RECOVERY DESK" Foreground="{StaticResource Quiet}" FontWeight="Bold" FontSize="9"/></StackPanel>
+                    <StackPanel Margin="12,0,0,0" VerticalAlignment="Center"><TextBlock Text="Text Polishr" FontWeight="SemiBold" FontSize="17"/><TextBlock Text="RECENT TRANSFORMATIONS" Foreground="{StaticResource Quiet}" FontWeight="Bold" FontSize="10"/></StackPanel>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal" shell:WindowChrome.IsHitTestVisibleInChrome="True">
                     <Button Content="—" Width="48" Height="44" Background="Transparent" BorderThickness="0" Foreground="{StaticResource Muted}" Click="Minimize_Click"/>
@@ -52,7 +52,7 @@
             <Grid Grid.Row="1" Margin="34,24,34,32">
                 <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="24"/><RowDefinition Height="*"/></Grid.RowDefinitions>
                 <Grid>
-                    <StackPanel><TextBlock Text="RECOVERY" Foreground="{StaticResource Signal}" FontWeight="Bold" FontSize="11"/><TextBlock Text="Recent transformations" FontFamily="Segoe UI Variable Display" FontSize="28" FontWeight="SemiBold" Margin="0,7,0,4"/><TextBlock Text="Three local checkpoints in case a replacement needs a second look." Foreground="{StaticResource Muted}"/></StackPanel>
+                    <StackPanel><TextBlock Text="LOCAL HISTORY" Foreground="{StaticResource Signal}" FontWeight="Bold" FontSize="12"/><TextBlock Text="Recent transformations" FontFamily="Segoe UI Variable Display" FontSize="28" FontWeight="SemiBold" Margin="0,7,0,4"/><TextBlock Text="The last three completed replacements are stored locally." Foreground="{StaticResource Muted}"/></StackPanel>
                     <Button Content="Clear all" Foreground="#FB7185" Style="{StaticResource ButtonBase}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Click="Clear_Click"/>
                 </Grid>
                 <Grid Grid.Row="2">
@@ -69,13 +69,13 @@
                                                 <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="16"/><ColumnDefinition/></Grid.ColumnDefinitions>
                                                 <Grid>
                                                     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="120"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                                                    <TextBlock Text="ORIGINAL" Foreground="{StaticResource Quiet}" FontWeight="Bold" FontSize="10" Margin="3,0,0,7"/>
+                                                    <TextBlock Text="ORIGINAL" Foreground="{StaticResource Quiet}" FontWeight="Bold" FontSize="11" Margin="3,0,0,7"/>
                                                     <Border Grid.Row="1" Background="{StaticResource Raised}" CornerRadius="8" Padding="12"><TextBox Text="{Binding OriginalText}" IsReadOnly="True" Background="Transparent" Foreground="{StaticResource Ink}" BorderThickness="0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/></Border>
                                                     <Button Grid.Row="2" Content="Copy original" Tag="original" CommandParameter="{Binding}" HorizontalAlignment="Left" Style="{StaticResource ButtonBase}" Margin="0,10,0,0" Click="Copy_Click"/>
                                                 </Grid>
                                                 <Grid Grid.Column="2">
                                                     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="120"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
-                                                    <TextBlock Text="RESULT" Foreground="{StaticResource Quiet}" FontWeight="Bold" FontSize="10" Margin="3,0,0,7"/>
+                                                    <TextBlock Text="RESULT" Foreground="{StaticResource Quiet}" FontWeight="Bold" FontSize="11" Margin="3,0,0,7"/>
                                                     <Border Grid.Row="1" Background="{StaticResource Raised}" CornerRadius="8" Padding="12"><TextBox Text="{Binding ReplacementText}" IsReadOnly="True" Background="Transparent" Foreground="{StaticResource Ink}" BorderThickness="0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/></Border>
                                                     <Button Grid.Row="2" Content="Copy result" Tag="result" CommandParameter="{Binding}" HorizontalAlignment="Left" Style="{StaticResource ButtonBase}" Margin="0,10,0,0" Click="Copy_Click"/>
                                                 </Grid>

@@ -27,9 +27,9 @@ internal sealed class ActionMenuForm : Form
         };
         var title = new Label
         {
-            Text = "Choose a preset",
+            Text = "Select a preset",
             ForeColor = Theme.Text,
-            Font = Theme.DisplayFont(13.5F, FontStyle.Bold),
+            Font = Theme.DisplayFont(15F, FontStyle.Bold),
             Location = new Point(16, 50),
             AutoSize = true
         };

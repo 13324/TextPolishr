@@ -57,6 +57,8 @@ internal static class SettingsUiSmoke
             Assert(reloaded.Models[reloaded.ActiveProviderId] == "test-model", "Model selection was not persisted.");
             Assert(reloaded.ApiKeys[reloaded.ActiveProviderId] == "test-key", "API key was not persisted.");
 
+            presetsNav.RaiseEvent(new RoutedEventArgs(WpfButton.ClickEvent));
+            window.UpdateLayout();
             var snapshotPath = Environment.GetEnvironmentVariable("TEXTPOLISHR_UI_SNAPSHOT");
             if (!string.IsNullOrWhiteSpace(snapshotPath)) Render(window, snapshotPath);
             window.Close();

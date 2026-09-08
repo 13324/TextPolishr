@@ -5,6 +5,7 @@ namespace TextPolishr.UI;
 internal sealed class CustomInstructionForm : Form
 {
     private readonly TextBox _instruction;
+    private readonly Panel? _instructionHost;
 
     public CustomInstructionForm()
     {
@@ -32,7 +33,7 @@ internal sealed class CustomInstructionForm : Form
         };
         var eyebrow = new Label
         {
-            Text = "CUSTOM TRANSFORM",
+            Text = "CUSTOM INSTRUCTION",
             AutoSize = true,
             Location = new Point(76, 18),
             Font = Theme.UiFont(7.75F, FontStyle.Bold),
@@ -40,7 +41,7 @@ internal sealed class CustomInstructionForm : Form
         };
         var title = new Label
         {
-            Text = "What should change?",
+            Text = "Describe the requested change",
             AutoSize = true,
             Location = new Point(74, 35),
             Font = Theme.DisplayFont(15F, FontStyle.Bold),
@@ -48,22 +49,33 @@ internal sealed class CustomInstructionForm : Form
         };
         var hint = new Label
         {
-            Text = "Describe the result in plain language. Your selection stays in the original app.",
+            Text = "The selected text is sent with this instruction and replaced when the request succeeds.",
             AutoSize = true,
             Location = new Point(25, 78),
             Font = Theme.UiFont(8.75F),
             ForeColor = Theme.Muted
         };
-        _instruction = new TextBox
+        _instructionHost = new Panel
         {
             Location = new Point(25, 108),
-            Size = new Size(550, 38),
+            Size = new Size(550, 40),
             Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right,
-            Font = Theme.UiFont(10F)
+            BackColor = Theme.Border,
+            Padding = new Padding(1)
         };
-        Theme.StyleInput(_instruction);
+        _instruction = new TextBox
+        {
+            Dock = DockStyle.Fill,
+            AutoSize = false,
+            BorderStyle = BorderStyle.None,
+            BackColor = Theme.SurfaceRaised,
+            ForeColor = Theme.Text,
+            Font = Theme.UiFont(10F),
+            Padding = new Padding(12, 9, 12, 8)
+        };
+        _instructionHost.Controls.Add(_instruction);
 
-        var apply = new Button { Text = "Transform", DialogResult = DialogResult.OK, Location = new Point(435, 191), Size = new Size(140, 42) };
+        var apply = new Button { Text = "Apply", DialogResult = DialogResult.OK, Location = new Point(435, 191), Size = new Size(140, 42) };
         var cancel = new Button { Text = "Cancel", DialogResult = DialogResult.Cancel, Location = new Point(321, 191), Size = new Size(104, 42) };
         Theme.StyleButton(apply, primary: true);
         Theme.StyleButton(cancel);
@@ -71,7 +83,8 @@ internal sealed class CustomInstructionForm : Form
         Round(cancel, 9);
         AcceptButton = apply;
         CancelButton = cancel;
-        Controls.AddRange([mark, eyebrow, title, hint, _instruction, apply, cancel]);
+        Controls.AddRange([mark, eyebrow, title, hint, _instructionHost, apply, cancel]);
+        Round(_instructionHost!, 8);
     }
 
     public string Instruction => _instruction.Text.Trim();
@@ -98,6 +111,7 @@ internal sealed class CustomInstructionForm : Form
         base.OnResize(eventArgs);
         using var path = Geometry.RoundRect(ClientRectangle, 16);
         Region = new Region(path);
+        if (_instructionHost is not null) Round(_instructionHost, 8);
     }
 
     protected override void OnPaint(PaintEventArgs eventArgs)
